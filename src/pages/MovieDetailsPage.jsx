@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link, Outlet } from 'react-router-dom';
 import { fetchTrendMoviesById } from '../services/api';
 
 export const MovieDetailsPage = () => {
   const { movieId } = useParams();
-  console.log(movieId);
 
   const [movie, setMovie] = useState(null);
   useEffect(() => {
@@ -14,18 +13,42 @@ export const MovieDetailsPage = () => {
     };
     getMovie();
   }, [movieId]);
+
   if (!movie) return <h2>Loading...</h2>;
   return (
     <main>
-      <img
-        src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-        alt={movie.title}
-      />
-      <h3>{movie.title}</h3>
-      <p>{movie.overview}</p>
-
-      {/* <MovieCast />
-      <MovieReviews /> */}
+      <div>
+        <div>
+          <img
+            src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+            alt={movie.title}
+          />
+        </div>
+        <div>
+          <h2>{movie.title}</h2>
+          <p>User Score: {Math.round(movie.vote_average * 10)} %</p>
+          <h3>Overview</h3>
+          <p>{movie.overview}</p>
+          <h4>Genres</h4>
+          <ul>
+            {movie.genres.map(genre => (
+              <li key={genre.id}>{genre.name}</li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h3>Additional information</h3>
+          <ul>
+            <li>
+              <Link to="cast">Cast</Link>
+            </li>
+            <li>
+              <Link to="reviews">Reviews</Link>
+            </li>
+          </ul>
+          <Outlet />
+        </div>
+      </div>
     </main>
   );
 };
