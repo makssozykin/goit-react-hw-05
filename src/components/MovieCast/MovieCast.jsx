@@ -14,8 +14,8 @@ export const MovieCast = () => {
     getMovie();
   }, [movieId]);
 
-  console.log(movie);
-  if (!movie) return <h2>Loading...</h2>;
+  if (movie.length === 0)
+    return <p>There is no information about the actors!</p>;
   return (
     <ul>
       {movie.cast.map(actor => (

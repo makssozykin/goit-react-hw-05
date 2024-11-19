@@ -13,6 +13,7 @@ export const MovieDetailsPage = () => {
     };
     getMovie();
   }, [movieId]);
+  console.log(movie);
 
   if (!movie) return <h2>Loading...</h2>;
   return (
@@ -26,7 +27,12 @@ export const MovieDetailsPage = () => {
         </div>
         <div>
           <h2>{movie.title}</h2>
-          <p>User Score: {Math.round(movie.vote_average * 10)} %</p>
+          <p>
+            User Score:
+            {movie.vote_average > 0
+              ? ` ${Math.round(movie.vote_average * 10)}%`
+              : ' NR'}
+          </p>
           <h3>Overview</h3>
           <p>{movie.overview}</p>
           <h4>Genres</h4>

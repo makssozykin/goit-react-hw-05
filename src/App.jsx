@@ -1,38 +1,20 @@
 // import { useEffect, useState } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { HomePage } from './pages/HomePage';
 import { MoviesPage } from './pages/MoviesPage';
 import { MovieDetailsPage } from './pages/MovieDetailsPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 
+import { Navigation } from './components/Navigation/Navigation';
 import { MovieCast } from './components/MovieCast/MovieCast';
 import { MovieReviews } from './components/MovieReviews/MovieReviews';
-// import { fetchMovies } from './services/api';
 
 import './App.css';
 
 function App() {
-  // const [movies, setMovies] = useState([]);
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     try {
-  //       const response = await fetchMovies();
-  //       console.log(response);
-  //       setMovies(response.results);
-  //     } catch (error) {
-  //       console.error('Error fetching movies:', error);
-  //     }
-  //   };
-  //   getData();
-  // }, [movies]);
   return (
     <>
-      <header>
-        <nav>
-          <Link to="/">Home</Link>
-          <Link to="/movies">Movie</Link>
-        </nav>
-      </header>
+      <Navigation />
 
       <Routes>
         <Route path="/" element={<HomePage />} />

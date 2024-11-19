@@ -14,7 +14,23 @@ export const MovieReviews = () => {
     getMovie();
   }, [movieId]);
 
-  console.log(movie);
-  if (!movie) return <h2>Loading...</h2>;
-  return <div>MovieReviews</div>;
+  if (movie.length === 0) return <p>No Reviews added...</p>;
+  return (
+    <ul>
+      {movie.map(author => (
+        <li key={author.id}>
+          <h3>A review by {author.author}</h3>
+          <p>
+            Written by <span>{author.author}</span> on{' '}
+            {new Date(author.created_at).toLocaleDateString('en-us', {
+              month: 'long',
+              day: 'numeric',
+              year: 'numeric',
+            })}
+          </p>
+          <p>{author.content}</p>
+        </li>
+      ))}
+    </ul>
+  );
 };
