@@ -2,11 +2,12 @@ import { fetchMovieReviewsById } from '../../services/api';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-export const MovieReviews = () => {
+const MovieReviews = () => {
   const { movieId } = useParams();
 
   const [movie, setMovie] = useState(null);
   useEffect(() => {
+    if (!movieId) return;
     const getMovie = async () => {
       const data = await fetchMovieReviewsById(movieId);
       setMovie(data.results);
@@ -14,7 +15,7 @@ export const MovieReviews = () => {
     getMovie();
   }, [movieId]);
 
-  if (movie.length === 0) return <p>No Reviews added...</p>;
+  if (!movie) return <p>No Reviews added...</p>;
   return (
     <ul>
       {movie.map(author => (
@@ -34,3 +35,5 @@ export const MovieReviews = () => {
     </ul>
   );
 };
+
+export default MovieReviews;

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { MovieList } from '../components/MovieList/MovieList';
 import { fetchTrendMovies } from '../services/api';
 import ChooseDate from '../components/ChooseDate/ChooseDate';
-export const HomePage = () => {
+const HomePage = () => {
   const [movies, setMovies] = useState([]);
   const [date, setDate] = useState('day');
 
@@ -31,3 +31,5 @@ export const HomePage = () => {
     </main>
   );
 };
+
+export default HomePage;

@@ -1,33 +1,38 @@
 import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { SearchBar } from '../components/SearchBar/SearchBar';
 import { MovieList } from '../components/MovieList/MovieList';
 import { fetchMovies } from '../services/api';
-export const MoviesPage = () => {
+const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
-  const [query, setQuery] = useState('');
+  const [queryParams, setQueryParams] = useSearchParams();
   useEffect(() => {
-    if (query === '') return;
+    const query = queryParams.get('query');
+    if (!query) return;
     const getData = async () => {
       try {
-        const { results } = await fetchMovies(query);
+        const data = await fetchMovies(query);
 
-        setMovies(prevMovies => [...prevMovies, ...results]);
+        setMovies(data);
       } catch (error) {
         console.error(error);
       }
     };
     getData();
-  }, [query]);
+  }, [queryParams]);
 
-  const handleSubmitQuery = query => {
-    setQuery(query);
-  };
+  // const handleSubmitQuery = query => {
+  //   setMovies([]);
+  //   setQueryParams(query);
+  // };
   return (
     <header>
-      <SearchBar onSubmit={handleSubmitQuery} />
-      <MovieList movies={movies} />
+      <SearchBar setQueryParams={setQueryParams} />
+      {movies.length > 0 && <MovieList movies={movies} />}
       <Toaster position="top-right" reverseOrder={false} />
     </header>
   );
 };
+
+export default MoviesPage;

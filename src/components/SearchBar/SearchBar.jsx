@@ -2,22 +2,21 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { IoSearch } from 'react-icons/io5';
 
-export const SearchBar = ({ onSubmit }) => {
+export const SearchBar = ({ setQueryParams }) => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSubmit = event => {
     event.preventDefault();
-    const trimSearchQuery = searchQuery.trim();
-    if (!trimSearchQuery) {
+    const query = searchQuery.trim();
+    if (!query) {
       toast.error('Please enter the value in the search field');
       return;
     }
-    onSubmit(trimSearchQuery);
-    setSearchQuery('');
+    setQueryParams({ query });
   };
 
-  const handleInputChange = event => {
-    setSearchQuery(event.target.value);
+  const handleInputChange = ({ target: { value } }) => {
+    setSearchQuery(value);
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -26,7 +25,6 @@ export const SearchBar = ({ onSubmit }) => {
         autoComplete="off"
         autoFocus
         placeholder="Search movies ..."
-        name="searchQuery"
         value={searchQuery}
         onChange={handleInputChange}
       />

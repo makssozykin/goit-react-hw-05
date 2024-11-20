@@ -2,11 +2,12 @@ import { fetchMovieCreditsById } from '../../services/api';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-export const MovieCast = () => {
+const MovieCast = () => {
   const { movieId } = useParams();
 
   const [movie, setMovie] = useState(null);
   useEffect(() => {
+    if (!movieId) return;
     const getMovie = async () => {
       const data = await fetchMovieCreditsById(movieId);
       setMovie(data);
@@ -14,8 +15,7 @@ export const MovieCast = () => {
     getMovie();
   }, [movieId]);
 
-  if (movie.length === 0)
-    return <p>There is no information about the actors!</p>;
+  if (!movie) return <p>There is no information about the actors!</p>;
   return (
     <ul>
       {movie.cast.map(actor => (
@@ -33,3 +33,5 @@ export const MovieCast = () => {
     </ul>
   );
 };
+
+export default MovieCast;

@@ -9,7 +9,7 @@ export const fetchTrendMovies = async date => {
   return data.results;
 };
 
-export const fetchTrendMoviesById = async movieId => {
+export const fetchMoviesById = async movieId => {
   const { data } = await axios.get(
     `movie/${movieId}?api_key=${API_KEY}&language=en-US`
   );
@@ -37,5 +37,5 @@ export const fetchMovies = async query => {
   const { data } = await axios.get(
     `search/movie?api_key=${API_KEY}&query=${query}&include_adult=false&language=en-US&page=1`
   );
-  return data;
+  return data.results;
 };

@@ -1,27 +1,39 @@
-import { useState, useEffect } from 'react';
-import { useParams, Link, Outlet } from 'react-router-dom';
-import { fetchTrendMoviesById } from '../services/api';
+import { Suspense, useState, useEffect } from 'react';
+import { useParams, useLocation, Link, Outlet } from 'react-router-dom';
+import { fetchMoviesById } from '../services/api';
+import { BackLink } from '../components/BackLink/BackLink';
 
-export const MovieDetailsPage = () => {
+const MovieDetailsPage = () => {
   const { movieId } = useParams();
+  const [movie, setMovie] = useState('');
+  const location = useLocation();
+  console.log(location);
+  const backLink = location.state ?? '/movies';
+  const defaultImg =
+    'https://dummyimage.com/400x600/cdcdcd/000.jpg&text=No+poster';
 
-  const [movie, setMovie] = useState(null);
   useEffect(() => {
+    if (!movieId) return;
     const getMovie = async () => {
-      const data = await fetchTrendMoviesById(movieId);
+      const data = await fetchMoviesById(movieId);
       setMovie(data);
     };
     getMovie();
   }, [movieId]);
-  console.log(movie);
 
-  if (!movie) return <h2>Loading...</h2>;
+  if (!movie) return <h2>Sorry! No Details about Movie!</h2>;
   return (
     <main>
+      <BackLink to={backLink}>Back to Movies</BackLink>
       <div>
         <div>
           <img
-            src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+            src={
+              movie.poster_path
+                ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+                : defaultImg
+            }
+            width={250}
             alt={movie.title}
           />
         </div>
@@ -52,9 +64,13 @@ export const MovieDetailsPage = () => {
               <Link to="reviews">Reviews</Link>
             </li>
           </ul>
-          <Outlet />
+          <Suspense fallback={<div>Loading page...</div>}>
+            <Outlet />
+          </Suspense>
         </div>
       </div>
     </main>
   );
 };
+
+export default MovieDetailsPage;
