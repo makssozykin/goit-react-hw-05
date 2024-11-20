@@ -23,7 +23,7 @@ const MovieDetailsPage = () => {
 
   if (!movie) return <h2>Sorry! No Details about Movie!</h2>;
   return (
-    <ma>
+    <>
       <BackLink to={backLink.current}>Back to Movies</BackLink>
       <div>
         <div>
@@ -69,7 +69,7 @@ const MovieDetailsPage = () => {
           </Suspense>
         </div>
       </div>
-    </ma>
+    </>
   );
 };
 
