@@ -12,7 +12,8 @@ export const SearchBar = ({ setQueryParams }) => {
       toast.error('Please enter the value in the search field');
       return;
     }
-    setQueryParams({ query });
+    setQueryParams(query);
+    setSearchQuery('');
   };
 
   const handleInputChange = ({ target: { value } }) => {

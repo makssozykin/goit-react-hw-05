@@ -1,4 +1,4 @@
-import { Suspense, useState, useEffect } from 'react';
+import { Suspense, useState, useEffect, useRef } from 'react';
 import { useParams, useLocation, Link, Outlet } from 'react-router-dom';
 import { fetchMoviesById } from '../services/api';
 import { BackLink } from '../components/BackLink/BackLink';
@@ -8,7 +8,7 @@ const MovieDetailsPage = () => {
   const [movie, setMovie] = useState('');
   const location = useLocation();
   console.log(location);
-  const backLink = location.state ?? '/movies';
+  const backLink = useRef(location.state ?? '/movies');
   const defaultImg =
     'https://dummyimage.com/400x600/cdcdcd/000.jpg&text=No+poster';
 
@@ -23,8 +23,8 @@ const MovieDetailsPage = () => {
 
   if (!movie) return <h2>Sorry! No Details about Movie!</h2>;
   return (
-    <main>
-      <BackLink to={backLink}>Back to Movies</BackLink>
+    <ma>
+      <BackLink to={backLink.current}>Back to Movies</BackLink>
       <div>
         <div>
           <img
@@ -69,7 +69,7 @@ const MovieDetailsPage = () => {
           </Suspense>
         </div>
       </div>
-    </main>
+    </ma>
   );
 };
 

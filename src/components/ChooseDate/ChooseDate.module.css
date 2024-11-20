@@ -1,0 +1,79 @@
+.toggle-radio {
+  display: flex;
+  gap: 5px;
+}
+
+.switch {
+  position: relative;
+  /* top: 50%;
+  left: 50%; */
+  width: 160px;
+  height: 50px;
+  text-align: center;
+  /* margin: -30px 0 0 -75px; */
+  background: #00bc9c;
+  transition: all 0.2s ease;
+  border-radius: 25px;
+}
+.switch span {
+  position: absolute;
+  width: 20px;
+  height: 4px;
+  top: 50%;
+  left: 47%;
+  margin: -2px 0px 0px -4px;
+  background: #fff;
+  display: block;
+  transform: rotate(-45deg);
+  transition: all 0.2s ease;
+}
+.switch span:after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 4px;
+  height: 12px;
+  margin-top: -8px;
+  background: #fff;
+  transition: all 0.2s ease;
+}
+input[type='radio'] {
+  display: none;
+}
+.switch label {
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.2);
+  width: 60px;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 50px;
+  transition: all 0.2s ease;
+}
+label[for='day'] {
+  position: absolute;
+  left: 0px;
+  height: 20px;
+}
+label[for='week'] {
+  position: absolute;
+  right: 5px;
+}
+.toggle-radio input:nth-child(2):checked ~ .switch {
+  background-color: #eb4f37;
+}
+.toggle-radio input:nth-child(2):checked ~ .switch span {
+  background: #fff;
+  margin-left: -8px;
+}
+.toggle-radio input:nth-child(2):checked ~ .switch span:after {
+  background: #fff;
+  height: 20px;
+  margin-top: -8px;
+  margin-left: 8px;
+}
+.toggle-radio input:nth-child(1):checked ~ .switch label[for='day'] {
+  color: #fff;
+}
+.toggle-radio input:nth-child(2):checked ~ .switch label[for='week'] {
+  color: #fff;
+}
