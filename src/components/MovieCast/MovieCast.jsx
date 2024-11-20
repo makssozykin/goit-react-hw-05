@@ -5,28 +5,29 @@ import { useState, useEffect } from 'react';
 const MovieCast = () => {
   const { movieId } = useParams();
 
-  const [movie, setMovie] = useState(null);
+  const [casts, setCats] = useState([]);
   useEffect(() => {
     if (!movieId) return;
     const getMovie = async () => {
       const data = await fetchMovieCreditsById(movieId);
-      setMovie(data);
+      setCats(data);
     };
     getMovie();
   }, [movieId]);
 
-  if (!movie) return <p>There is no information about the actors!</p>;
-  return (
+  return casts.length === 0 ? (
+    <p>There is no information about the actors!</p>
+  ) : (
     <ul>
-      {movie.cast.map(actor => (
-        <li key={actor.credit_id}>
+      {casts.cast.map(cast => (
+        <li key={cast.credit_id}>
           <div>
             <img
-              src={`https://image.tmdb.org/t/p/w500/${actor.profile_path}`}
-              alt={actor.name}
+              src={`https://image.tmdb.org/t/p/w500/${cast.profile_path}`}
+              alt={cast.name}
             />
-            <p>{actor.name}</p>
-            <p>Character: {actor.character}</p>
+            <p>{cast.name}</p>
+            <p>Character: {cast.character}</p>
           </div>
         </li>
       ))}
