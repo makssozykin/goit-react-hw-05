@@ -14,8 +14,11 @@ const MoviesPage = () => {
     const getData = async () => {
       try {
         const data = await fetchMovies(query);
-
-        setMovies(data);
+        const voteSort = data.sort(
+          (firstMovie, secondMovie) =>
+            secondMovie.vote_average - firstMovie.vote_average
+        );
+        setMovies(voteSort);
       } catch (error) {
         console.error(error);
       }
