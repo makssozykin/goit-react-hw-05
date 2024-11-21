@@ -8,6 +8,7 @@ import css from './MoviePage.module.css';
 const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
   const [queryParams, setQueryParams] = useSearchParams();
+
   useEffect(() => {
     const query = queryParams.get('query') ?? '';
     if (!query) return;
@@ -30,6 +31,7 @@ const MoviesPage = () => {
     queryParams.set('query', newValue);
     setQueryParams(queryParams);
   };
+
   return (
     <main className={css['main-cont']}>
       <SearchBar setQueryParams={handleSetQuery} />

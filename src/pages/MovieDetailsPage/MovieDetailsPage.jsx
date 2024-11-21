@@ -11,9 +11,10 @@ const MovieDetailsPage = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState('');
   const [certification, setCertification] = useState('');
+
   const location = useLocation();
-  console.log(location);
   const backLink = useRef(location.state ?? '/movies');
+
   const defaultImg =
     'https://dummyimage.com/400x600/cdcdcd/000.jpg&text=No+poster';
 
@@ -22,15 +23,34 @@ const MovieDetailsPage = () => {
     const getMovie = async () => {
       const data = await fetchMoviesById(movieId);
       const { results } = await fetchMoviesCertificationById(movieId);
-      console.log(results[42]);
+      const ageArr = results
+        .filter(
+          result => result.iso_3166_1 === 'UA' || result.iso_3166_1 === 'US'
+        )
+        .filter(result => {
+          if (
+            result.iso_3166_1 === 'UA' &&
+            result.release_dates[0].certification !== ''
+          ) {
+            return result.release_dates[0].certification;
+          } else {
+            return (
+              result.iso_3166_1 === 'US' &&
+              result.release_dates[0].certification
+            );
+          }
+        });
+
+      const age = ageArr[0].release_dates[0].certification;
       setMovie(data);
-      setCertification(results[42]); // Assuming the certification is at index 42
+      setCertification(age);
     };
     getMovie();
   }, [movieId]);
-  console.log(movie);
-  if (!movie) return <h2>Sorry! No Details about Movie!</h2>;
-  return (
+
+  return !movie ? (
+    <h2>Sorry! No Details about Movie!</h2>
+  ) : (
     <main className={css['main-cont']}>
       <BackLink to={backLink.current}>Go Back</BackLink>
       <div className={css['movie-container']}>
@@ -50,7 +70,7 @@ const MovieDetailsPage = () => {
               movie.release_date
             ).getFullYear()})`}</h2>
             <ul className={css['movie-short-info']}>
-              <li>{certification.release_dates[0].certification}</li>
+              <li>{certification}</li>
               <li>
                 {new Date(movie.release_date).toLocaleDateString('en-US')}
               </li>
