@@ -1,4 +1,6 @@
 .header {
+  min-width: 550px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;

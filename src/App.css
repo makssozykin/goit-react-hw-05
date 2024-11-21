@@ -1,4 +1,6 @@
 #root {
-  max-width: 1280px;
+  position: relative;
+  min-width: 550px;
+  max-width: 1540px;
   margin: 0 auto;
 }

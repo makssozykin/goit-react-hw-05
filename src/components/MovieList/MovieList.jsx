@@ -17,7 +17,6 @@ export const MovieList = ({ movies }) => {
                     ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
                     : defaultImg
                 }
-                width={200}
                 alt={movie.title}
               />
               <p className={css['movie-title']}>{movie.title} </p>
