@@ -17,6 +17,14 @@ export const fetchMoviesById = async movieId => {
   return data;
 };
 
+export const fetchMoviesCertificationById = async movieId => {
+  const { data } = await axios.get(
+    `movie/${movieId}/release_dates?api_key=${API_KEY}`
+  );
+
+  return data;
+};
+
 export const fetchMovieCreditsById = async movieId => {
   const { data } = await axios.get(
     `movie/${movieId}/credits?api_key=${API_KEY}&language=en-US`
@@ -27,7 +35,7 @@ export const fetchMovieCreditsById = async movieId => {
 
 export const fetchMovieReviewsById = async movieId => {
   const { data } = await axios.get(
-    `movie/${movieId}/reviews?api_key=${API_KEY}&language=en-US`
+    `movie/${movieId}/reviews?api_key=${API_KEY}&include_adult=true&language=en-US`
   );
 
   return data;
@@ -35,7 +43,14 @@ export const fetchMovieReviewsById = async movieId => {
 
 export const fetchMovies = async query => {
   const { data } = await axios.get(
-    `search/movie?api_key=${API_KEY}&query=${query}&include_adult=false&language=en-US&page=1`
+    `search/movie?api_key=${API_KEY}&query=${query}&include_adult=true&language=en-US&page=1`
+  );
+  return data.results;
+};
+
+export const fetchMoviesCertification = async query => {
+  const { data } = await axios.get(
+    `search/movie?api_key=${API_KEY}&query=${query}&include_adult=true&language=en-US&page=1`
   );
   return data.results;
 };
