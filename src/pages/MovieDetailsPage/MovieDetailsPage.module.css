@@ -4,7 +4,7 @@
 .movie-container {
   display: flex;
   flex-direction: column;
-  border: 1px solid black;
+  border: 2px solid black;
   border-radius: 10px;
 }
 
@@ -25,6 +25,13 @@
   object-fit: cover;
 }
 
+.movie-title {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.5;
+  margin-bottom: 5px;
+}
+
 .movie-short-info {
   display: flex;
   gap: 30px;
@@ -32,16 +39,34 @@
   justify-content: start;
   font-size: 16px;
   list-style-type: disc;
+  padding: 5px 0;
+  margin-bottom: 10px;
 }
 
-.movie-short-info li:nth-child(1),
-.movie-short-info li:nth-child(2) {
+.movie-short-info li:nth-child(1) {
   list-style: none;
+}
+
+.movie-short-info li {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: black;
 }
 
 .movie-genres {
   display: flex;
   gap: 2px;
+}
+
+.user-score {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.5;
 }
 
 .movie-add-info {
@@ -76,4 +101,21 @@
 .ipc-icon {
   vertical-align: middle;
   color: rgb(245, 197, 24);
+}
+
+.movie-overview {
+  padding: 10px;
+  border-top: 1px solid black;
+}
+
+.overview-title {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.5;
+  margin-bottom: 5px;
+}
+
+.overview-text {
+  font-size: 16px;
+  line-height: 1.5;
 }
