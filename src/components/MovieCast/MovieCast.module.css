@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
+  margin-top: 10px;
   transition: all 0.5s ease-in-out;
 }
 
@@ -39,6 +40,7 @@
 }
 
 .cast-item p:nth-child(2) {
+  padding-top: 5px;
   padding-left: 5px;
   font-weight: bold;
   height: 36px;
@@ -48,4 +50,16 @@
   padding-left: 5px;
   height: 44px;
   font-size: 12px;
+}
+
+.cast-no-info {
+  color: rgb(124, 113, 113);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-top: 1px solid rgb(124, 113, 113);
+  border-bottom: 1px solid rgb(124, 113, 113);
+  text-align: center;
 }

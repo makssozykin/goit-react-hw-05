@@ -25,7 +25,7 @@ const MovieDetailsPage = () => {
       try {
         const data = await fetchMoviesById(movieId);
         const { results } = await fetchMoviesCertificationById(movieId);
-
+        console.log(results);
         const ageArr = results
           .filter(
             result => result.iso_3166_1 === 'UA' || result.iso_3166_1 === 'US'
@@ -43,16 +43,19 @@ const MovieDetailsPage = () => {
               return result.release_dates[0].certification;
             } else if (
               result.iso_3166_1 === 'US' &&
+              result.release_dates[1].certification !== ''
+            ) {
+              return result.release_dates[1].certification;
+            } else if (
+              result.iso_3166_1 === 'US' &&
               result.release_dates[0].certification === ''
             ) {
               return (result.iso_3166_1 =
                 data.origin_country &&
                 result.release_dates[0].certification === <s>NA</s>);
-            } else {
-              return result.release_dates[1].certification;
             }
           });
-
+        console.log(ageArr);
         const age =
           ageArr.length === 0 ? (
             <s>NA</s>
@@ -103,7 +106,7 @@ const MovieDetailsPage = () => {
             ).getFullYear()})`}</h2>
             <ul className={css['movie-short-info']}>
               <li>
-                <span>{certification}</span>{' '}
+                <span className={css.certification}>{certification}</span>{' '}
                 <span>
                   {new Date(movie.release_date).toLocaleDateString('en-US')}
                 </span>{' '}
@@ -156,10 +159,10 @@ const MovieDetailsPage = () => {
         <div className={css['movie-add-info']}>
           <h3>Additional information</h3>
           <ul className={css['movie-add-info-list']}>
-            <li>
+            <li className={css['movie-add-info-item']}>
               <Link to="cast">Cast</Link>
             </li>
-            <li>
+            <li className={css['movie-add-info-item']}>
               <Link to="reviews">Reviews</Link>
             </li>
           </ul>

@@ -20,7 +20,9 @@ const MovieCast = () => {
   }, [movieId]);
 
   return casts.length === 0 ? (
-    <p>There is no information about the actors!</p>
+    <p className={css['cast-no-info']}>
+      There is no information about the actors!
+    </p>
   ) : (
     <ul className={css['cast-list']}>
       {casts.cast.map(cast => (
