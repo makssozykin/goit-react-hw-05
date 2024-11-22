@@ -7,6 +7,7 @@ import { Navigation } from './components/Navigation/Navigation';
 import Loader from './components/Loader/Loader';
 import './App.css';
 
+// Lazy-loaded components
 const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
 const MoviesPage = lazy(() => import('./pages/MoviesPage/MoviesPage'));
 const MovieDetailsPage = lazy(() =>
