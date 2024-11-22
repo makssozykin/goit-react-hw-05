@@ -1,0 +1,21 @@
+.error-cont {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.error-svg {
+  width: 100px;
+  height: 100px;
+  color: red;
+}
+
+.error-text {
+  font-size: 50px;
+  font-weight: bold;
+  color: rgb(124, 113, 113);
+  text-align: center;
+}

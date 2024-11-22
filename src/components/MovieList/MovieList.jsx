@@ -1,7 +1,9 @@
 import { useLocation, Link } from 'react-router-dom';
+
 import css from './MovieList.module.css';
 export const MovieList = ({ movies }) => {
   const location = useLocation();
+
   const defaultImg =
     'https://dummyimage.com/400x600/cdcdcd/000.jpg&text=No+poster';
 

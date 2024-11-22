@@ -1,20 +1,21 @@
 import { Suspense, useState, useEffect, useRef } from 'react';
 import { useParams, useLocation, Link, Outlet } from 'react-router-dom';
-import {
-  fetchMoviesById,
-  fetchMoviesCertificationById,
-} from '../../services/api';
+import { fetchMoviesById } from '../../services/api';
 import { BackLink } from '../../components/BackLink/BackLink';
+import { Certification } from '../../components/Certification/Certification';
+import Loader from '../../components/Loader/Loader';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import css from './MovieDetailsPage.module.css';
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState('');
-  const [certification, setCertification] = useState('');
-  const [country, setCountry] = useState('');
 
   const location = useLocation();
   const backLink = useRef(location.state ?? '/movies');
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const defaultImg =
     'https://dummyimage.com/400x600/cdcdcd/000.jpg&text=No+poster';
@@ -23,58 +24,14 @@ const MovieDetailsPage = () => {
     if (!movieId) return;
     const getMovie = async () => {
       try {
+        setIsLoading(true);
+        setError(false);
         const data = await fetchMoviesById(movieId);
-        const { results } = await fetchMoviesCertificationById(movieId);
-        console.log(results);
-        const ageArr = results
-          .filter(
-            result => result.iso_3166_1 === 'UA' || result.iso_3166_1 === 'US'
-          )
-          .filter(result => {
-            if (
-              result.iso_3166_1 === 'UA' &&
-              result.release_dates[0].certification !== ''
-            ) {
-              return result.release_dates[0].certification;
-            } else if (
-              result.iso_3166_1 === 'US' &&
-              result.release_dates[0].certification !== ''
-            ) {
-              return result.release_dates[0].certification;
-            } else if (
-              result.iso_3166_1 === 'US' &&
-              result.release_dates[1].certification !== ''
-            ) {
-              return result.release_dates[1].certification;
-            } else if (
-              result.iso_3166_1 === 'US' &&
-              result.release_dates[0].certification === ''
-            ) {
-              return (result.iso_3166_1 =
-                data.origin_country &&
-                result.release_dates[0].certification === <s>NA</s>);
-            }
-          });
-        console.log(ageArr);
-        const age =
-          ageArr.length === 0 ? (
-            <s>NA</s>
-          ) : ageArr[0].release_dates[0].certification !== '' ? (
-            ageArr[0].release_dates[0].certification
-          ) : ageArr[0].release_dates[1].certification === '' ? (
-            <s>NA</s>
-          ) : (
-            ageArr[0].release_dates[1].certification
-          );
-
-        const countryName =
-          ageArr.length === 0 ? data.origin_country : ageArr[0].iso_3166_1;
-
         setMovie(data);
-        setCertification(age);
-        setCountry(countryName);
       } catch (error) {
-        console.log('Error:', error);
+        setError(true);
+      } finally {
+        setIsLoading(false);
       }
     };
     getMovie();
@@ -82,11 +39,13 @@ const MovieDetailsPage = () => {
 
   return !movie ? (
     <main className={css['main-cont']}>
+      {isLoading && <Loader />}
       <BackLink to={backLink.current}>Go Back</BackLink>
       <h2>Sorry! No Details about Movie!</h2>
     </main>
   ) : (
     <main className={css['main-cont']}>
+      {isLoading && <Loader />}
       <BackLink to={backLink.current}>Go Back</BackLink>
       <div className={css['movie-container']}>
         <div className={css['movie-content']}>
@@ -106,11 +65,9 @@ const MovieDetailsPage = () => {
             ).getFullYear()})`}</h2>
             <ul className={css['movie-short-info']}>
               <li>
-                <span className={css.certification}>{certification}</span>{' '}
-                <span>
+                <Certification>
                   {new Date(movie.release_date).toLocaleDateString('en-US')}
-                </span>{' '}
-                <span>({country})</span>
+                </Certification>
               </li>
               <li>
                 {movie.genres.length === 0
@@ -171,6 +128,7 @@ const MovieDetailsPage = () => {
           </Suspense>
         </div>
       </div>
+      {error && <ErrorMessage />}
     </main>
   );
 };

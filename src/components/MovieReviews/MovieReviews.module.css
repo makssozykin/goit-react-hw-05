@@ -47,3 +47,15 @@
   text-overflow: clip;
   overflow: visible;
 }
+
+.reviews-no-info {
+  color: rgb(124, 113, 113);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-top: 1px solid rgb(124, 113, 113);
+  border-bottom: 1px solid rgb(124, 113, 113);
+  text-align: center;
+}

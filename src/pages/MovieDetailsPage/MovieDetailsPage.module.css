@@ -71,17 +71,6 @@
   line-height: 1;
 }
 
-.certification {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 45px;
-  height: 35px;
-  border: 1px solid rgb(227, 227, 227);
-  border-radius: 5px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
 .movie-genres {
   display: flex;
   gap: 2px;
