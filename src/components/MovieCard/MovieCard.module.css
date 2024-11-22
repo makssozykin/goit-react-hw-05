@@ -1,0 +1,56 @@
+.movie-poster {
+  display: block;
+  width: 235px;
+  height: 327px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  object-fit: cover;
+}
+
+.movie-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  align-content: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 48px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.6;
+  padding: 0 10px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  color: black;
+  background-color: #fff;
+}
+
+.score {
+  position: absolute;
+  bottom: 35px;
+  right: 3px;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  color: black;
+  background-color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  transition: all 0.5s ease-in-out;
+}
+.score svg {
+  width: 14px;
+  height: 14px;
+  fill: rgb(245, 197, 24);
+}
+
+.ipc-icon {
+  vertical-align: middle;
+  color: rgb(245, 197, 24);
+}
