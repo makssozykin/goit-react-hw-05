@@ -6,7 +6,7 @@ import { MovieList } from '../../components/MovieList/MovieList';
 import Loader from '../../components/Loader/Loader';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { fetchMovies } from '../../services/api';
-import css from './MoviePage.module.css';
+import css from './MoviePages.module.css';
 const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
   const [queryParams, setQueryParams] = useSearchParams();
