@@ -7,15 +7,19 @@ export const MovieList = ({ movies }) => {
 
   return (
     <ul className={css.movieList}>
-      {movies.map(movie => {
-        return (
-          <li key={movie.id} className={css.movieItem}>
-            <Link state={location} to={`/movies/${movie.id}`}>
-              <MovieCard movie={movie} />
-            </Link>
-          </li>
-        );
-      })}
+      {!movies ? (
+        <li>No Movies or Bad Request. Try one more! </li>
+      ) : (
+        movies.map(movie => {
+          return (
+            <li key={movie.id} className={css.movieItem}>
+              <Link state={location} to={`/movies/${movie.id}`}>
+                <MovieCard movie={movie} />
+              </Link>
+            </li>
+          );
+        })
+      )}
     </ul>
   );
 };

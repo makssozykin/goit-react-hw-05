@@ -45,7 +45,9 @@ const MoviesPage = () => {
     <main className={css['main-cont']}>
       <SearchBar setQueryParams={handleSetQuery} />
       {isLoading && <Loader />}
-      {movies.length > 0 && <MovieList movies={movies} />}
+      {movies.length > 0 && !isLoading && !error && (
+        <MovieList movies={movies} />
+      )}
       {error && <ErrorMessage />}
       <Toaster position="top-right" reverseOrder={false} />
     </main>
