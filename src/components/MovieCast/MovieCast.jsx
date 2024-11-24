@@ -21,8 +21,8 @@ const MovieCast = () => {
       try {
         setIsLoading(true);
         setError(false);
-        const data = await fetchMovieCreditsById(movieId);
-        setCats(data);
+        const { cast } = await fetchMovieCreditsById(movieId);
+        setCats(cast);
       } catch (error) {
         setError(true);
       } finally {
@@ -40,7 +40,7 @@ const MovieCast = () => {
     <>
       {isLoading && <Loader />}
       <ul className={css['cast-list']}>
-        {casts.cast.map(cast => (
+        {casts.map(cast => (
           <li key={cast.credit_id} className={css['cast-item']}>
             <img
               src={
